@@ -31,7 +31,7 @@ class Train(models.Model):
     departure = models.DateTimeField(verbose_name='Departure time')
     arrival = models.DateTimeField(null=True, blank=True, verbose_name='Arrival time')
 
-    objects = StatusTrainException()
+    objects = TrainManager()
 
     @property
     def status(self):

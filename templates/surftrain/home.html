@@ -2,12 +2,42 @@
     <head>
         <title>Surftrains</title>
         <style type="text/css">
-            h1 {color: #009; }
-            body {background-color: #fff;}
+            h1, h3, strong {color: #009;}
+            body {background-color: #cef;}
         </style>
-        <script type="text/javascript" src="/static/jquery.js" ></script>
     </head>
     <body>
         <h1>Surftrains</h1>
+        <h3>Upcoming Departures</h3>
+        <ul>
+        {% for i in scheduled %}
+            <li><strong>{{ i.description }}:</strong>Created by: <strong>{{ i.user }}</strong>, departing at {{ i.departure|date:"Y-m-d H:i" }}</li>
+        {% endfor %}
+        </ul>
+        <h3>Ongoing trains</h3>
+        <ul>
+            {% for i in ongoing %}
+            <li><strong>{{ i.description }}:</strong>Created by: <strong>{{ i.user }}</strong>, departed at {{ i.departure|date:"Y-m-d H:i" }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Latest arrivals</h3>
+        <ul>
+            {% for i in arrived %}
+            <li><strong>{{ i.description }}:</strong>Created by: <strong>{{ i.user }}</strong>, arrived at {{ i.arrival|date:"Y-m-d H:i" }}</li>
+            {% endfor %}
+        </ul>
+    <h3>Schedule new train</h3>
+        <form  method="post" action="">
+            {% for field in form %}{% csrf_token %}
+            <div>
+
+                {{ field.label_tag }}:<br />
+                {{ field.errors }}
+                {{ field }}
+            </div>
+            {% endfor %}
+            <input type="submit" value="Create">
+
+        </form>
     </body>
 </html>
